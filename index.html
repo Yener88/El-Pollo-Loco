@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pollo Loco</title>
+    <link rel="icon" type="image/x-icon" href="img/collectableobjects/bottle/bottle.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <script src="./models/drawableObject.class.js"></script>
+    <script src="./models/movableObject.class.js"></script>
+    <script src="./models/throwableObject.class.js"></script>
+    <script src="./models/healthbar.class.js"></script>
+    <script src="./models/bossHealthbar.class.js"></script>
+    <script src="./models/bottlecounter.class.js"></script>
+    <script src="./models/coincounter.class.js"></script>
+    <script src="./models/backgroundObject.class.js"></script>
+    <script src="./models/collectableObject.class.js"></script>
+    <script src="./models/clouds.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/littleChicken.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./levels/level1.js"></script>
+
+    <script src="./models/world.class.js"></script>
+
+    <script src="./js/game.js"></script>
+    <script src="./js/fullscreen.js"></script>
+
+    <script>
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            screen.orientation.lock("landscape");
+            document.querySelector('.game-container').requestFullscreen();
+            document.querySelector('.game-container').webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+            document.querySelector('.game-container').msRequestFullscreen();
+            window.onbeforeunload = function () {
+                screen.orientation.unlock();
+                document.exitFullscreen();
+                document.msExitFullscreen();
+                document.webkitExitFullscreen();
+            };
+        }
+        if (window.matchMedia("(max-width: 1000px)").matches) {
+            screen.orientation.lock("landscape");
+            document.querySelector('.game-container').requestFullscreen();
+            document.querySelector('.game-container').webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+            document.querySelector('.game-container').msRequestFullscreen();
+            document.querySelector('.game-container').mozRequestFullScreen();
+            window.onbeforeunload = function () {
+                screen.orientation.unlock();
+                document.exitFullscreen();
+                document.msExitFullscreen();
+                document.webkitExitFullscreen();
+                document.webkitExitFullscreen();
+            };
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="game-container" id="fullscreenarea">
+        <div class="button-bar">
+            <button id="startButton" class="gameButton" onclick="startGame()">Start</button>
+            <button id="stopButton" class="gameButton d-none" onclick="world.stopGame()">Stop</button>
+            <button id="resumeButton" class="gameButton d-none" onclick="world.resumeGame()">Resume</button>
+            <div id="win-text" class="result-text d-none">You Win !</div>
+            <div id="lose-text" class="result-text d-none">Game Over !</div>
+        </div>
+        <img id="startScreen" src="img/screens/startscreen.png">
+        <canvas id="canvas" width="960" height="540">
+        </canvas>
+        <button class="btnleft btndnone" id="btnLeft">
+            <img src="img/screens/btnleft.png" class="btnstyle">
+        </button>
+        <button class="btnright btndnone" id="btnRight">
+            <img src="img/screens/btnright.png" class="btnstyle">
+        </button>
+        <button class="btnjump btndnone" id="btnJump">
+            <img src="img/screens/btnjump.png" class="btnstyle">
+        </button>
+        <button class="btnthrow btndnone" id="btnThrow">
+            <img src="img/screens/btnthrow.png" class="btnstyle">
+        </button>
+
+        <img id="gameWon" class="gameResult" src="img/screens/win.png">
+        <img id="gameOver" class="gameResult" src="img/screens/youlost.png">
+        <button id="restartButton" class="restart" onclick="world.restartGame()">RESTART</button>
+        <button id="controls" class="dnoneresponsiv" onclick="showControlDescription()">Controls</button>
+        <div id="control-description" class="control-description show-description dnoneresponsiv">
+            <img src="img/screens/keyleft.png"><span>Move Left</span>
+            <img src="img/screens/keyup.png"><span>Jump</span>
+            <img src="img/screens/keyright.png"><span>Move Right</span>
+            <div class="space-button"><img src="img/screens/keyspace.png"></div><span>Throw Bottle</span>
+            <img src="img/screens/return.png"><span>Pause</span>
+        </div>
+        <div class="fullscreen" id="dontshowfullbtn" onclick="makeFullScreen()"><img src="img/screens/fullscreen.png"
+                style="width: 18px;"></div>
+    </div>
+</body>
+
+</html>
